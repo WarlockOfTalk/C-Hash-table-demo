@@ -5,6 +5,9 @@
 #include <string.h>
 #include "helpers.h"
 
+//Timing Tests
+#include <time.h>
+
 
 extern node* hash_table[HASH_MAX];
 extern FILE* hash_file = NULL;
@@ -84,6 +87,7 @@ int main(int argc, char* argv[])
         }
 
         printf("Successfully added %d items to hash table..\n\n", l);
+
     }
     
 
@@ -94,9 +98,10 @@ int main(int argc, char* argv[])
             "\t2: Print a defined number of items\n"
             "\t3: Search hash table for string\n"
             "\t4: Add string to hash table\n"
-            "\t5: Delete string from hash table\n"//TODO
-            "\t6: Import text file to hash table\n" //TODO
+            "\t5: Delete string from hash table\n"
+            "\t6: Import text file to hash table\n"
             "\t7: Exit\n"
+            "\t8: Timing test to find n names in file\n"
             "Select an option: "
         );
 
@@ -122,6 +127,7 @@ int main(int argc, char* argv[])
             fgets(string_input, MAX_NAME, stdin);
             fflush(stdin);
             string_input[strcspn(string_input, "\n")] = 0;
+
             printf("%s was %s in the hash table.\n", string_input, find(string_input) ? "found": "not found");
             break;
         
@@ -195,6 +201,45 @@ int main(int argc, char* argv[])
         case '7':
             printf("Exiting..\n");
             return 0;
+
+        case '8':
+            printf("Enter path of file to add to hash table: ");
+            fgets(string_input, MAX_PATH, stdin);
+            fflush(stdin);
+            string_input[strcspn(string_input, "\n")] = 0;
+
+            hash_file = fopen(string_input, "r");
+
+            printf("Opening %s\n", string_input);
+            if(hash_file == NULL)
+            {
+                printf("ERROR: CANNOT OPEN SPECIFIED FILE\n");
+                return -1;
+            }
+
+            fflush(stdin);
+            printf("How many items to print?\n");
+            scanf("%d", &num_items);
+            
+            printf("Searching %d names in %s...\n", num_items, string_input);
+
+            clock_t begin = clock();
+            
+            l = 0;
+            while (getline(&str, &size, hash_file) != -1 && l < num_items)
+            {   
+                str[strcspn(str, "\n")] = 0;
+                find(str);
+                l++;
+            }
+
+            clock_t end = clock();
+            double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+
+            printf("Successfully looked-up %d items in the hash table..in %lf seconds\n\n", l, time_spent);
+            
+
+            break;
         
         default:
             printf("Invalid option!\n");

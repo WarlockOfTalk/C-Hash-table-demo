@@ -120,7 +120,7 @@ int print_list_limited(node* current, int num_items, int count)
 
 bool find(char* name)
 {
-    printf("\nLooking for %s...\n", name);
+    // printf("\nLooking for %s...\n", name);
     int hash_code = hash(name);
     return find_node(hash_table[hash_code], name);
 }
@@ -134,7 +134,7 @@ bool find_node(node* current, char* name)
 
     else if (strcmp(current->name, name) == 0)
     {
-        printf("Found it!\n");
+        // printf("Found it!\n");
         return true;
     }
 
