@@ -2,6 +2,7 @@
 
 ### Personal project hash table in C demonstration
 
+- Learning project that demonstrates use of an array of linked lists to build a hash table that can store thousands of strings and carry out ten's of thousands of lookups in milliseconds
 - Included "names.txt" serves as demo file can be read into the hash table by running ./hash_table.exe "names.txt"
 - "names.txt" contains a list of 18,239 people's names 
 
@@ -15,3 +16,4 @@
 - Option 8 - 'Timing Test' performs a search of 'n' items from file and records the time taken to look up items
   - This was run with different sized hash tables for optimisation puposes
   - Diminished returns for tables over 1000 in size
+
