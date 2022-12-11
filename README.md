@@ -7,7 +7,7 @@
 - "names.txt" contains a list of 18,239 people's names 
 
 ### Menu Options
-- Option 1 - Prints all items currently in the table
+- Option 1 - Prints all items currently in the table 
 - Option 2 - Prints 'n' number of items in order from the table
 - Option 3/4/5 - Search / Add / Delete items from the hash table
 - Option 6 - Can add any text file you want to hash table with command line argument or using built in menu
@@ -17,3 +17,9 @@
   - This was run with different sized hash tables for optimisation puposes
   - Diminished returns for tables over 1000 in size
 
+
+  ## TODO
+  - [ ] Add better data validation - negative values, non-numbers etc.
+  - [ ] Find and implement more optimised hashing algorithm
+  - [ ] More error checking
+  - [ ] Remove scanf() usuage, implement safer option
