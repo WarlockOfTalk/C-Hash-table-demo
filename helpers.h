@@ -5,6 +5,7 @@
 #define HASH_MAX 1 //hash table length
 #define LIST_LEN 2000 //number of names to input in hash table
 #define MAX_NAME 50 //max length of a name
+#define BUFFER_SIZE 1024
 
 typedef struct node
 {
@@ -32,5 +33,8 @@ void free_hash(void);
 bool delete_node(node** Pcurrent, char* string_input);
 bool delete_from_hash(char* string_input);
 
+int validate_int();
+
+void print_menu();
 
 #endif /* HELPERS_H_ */

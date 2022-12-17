@@ -10,7 +10,7 @@
 
 
 extern node* hash_table[HASH_MAX];
-extern FILE* hash_file = NULL;
+extern FILE* hash_file;
 
 char usr_input;
 
@@ -27,7 +27,6 @@ int main(int argc, char* argv[])
     int num_items;
     char usr_input;
     bool deleted;
-
 
     switch (argc)
     {
@@ -93,17 +92,7 @@ int main(int argc, char* argv[])
 
 
 
-    printf("MENU\n"
-            "\t1: Print all items in hash table\n"
-            "\t2: Print a defined number of items\n"
-            "\t3: Search hash table for string\n"
-            "\t4: Add string to hash table\n"
-            "\t5: Delete string from hash table\n"
-            "\t6: Import text file to hash table\n"
-            "\t7: Exit\n"
-            "\t8: Timing test to find n names in file\n"
-            "Select an option: "
-        );
+    print_menu();
 
     usr_input = fgetchar();
     fflush(stdin);
@@ -116,8 +105,9 @@ int main(int argc, char* argv[])
             print_hash(hash_table);
             break;
         case '2':
-            printf("How many items to print?\n");
-            scanf("%d", &num_items);
+            
+            num_items = validate_int();
+
             printf("\n\n%d\n\n", num_items);
             print_hash_limited(num_items);
             break;
@@ -203,6 +193,10 @@ int main(int argc, char* argv[])
             return 0;
 
         case '8':
+
+            printf("\nThis benchmark test clocks the time taken to find items from one file in the hash table. Provide a file name and then the number of items you want to lookup in that file. A stopwatch will calculate the time taken to look up those items\n");
+            printf("Note: This was used mostly as a tool to optimise the bucket size of the hash table\n\n");
+
             printf("Enter path of file to add to hash table: ");
             fgets(string_input, MAX_PATH, stdin);
             fflush(stdin);
@@ -217,9 +211,7 @@ int main(int argc, char* argv[])
                 return -1;
             }
 
-            fflush(stdin);
-            printf("How many items to print?\n");
-            scanf("%d", &num_items);
+            num_items = validate_int();
             
             printf("Searching %d names in %s...\n", num_items, string_input);
 
@@ -242,16 +234,7 @@ int main(int argc, char* argv[])
             break;
         
         default:
-            printf("Invalid option!\n");
-            printf("\nMENU\n"
-            "\t1: Print all items in hash table\n"
-            "\t3: Search hash table for string\n"
-            "\t4: Add string to hash table\n"
-            "\t5: Delete string from hash table\n"
-            "\t6: Something else I will add\n" //TODO
-            "\t7: Exit\n"
-            "Select an option: "
-        );
+            print_menu();
             break;
         }
 
