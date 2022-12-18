@@ -16,7 +16,7 @@ int validate_int()
 
     do
     {
-        printf("How many items to print?\n");
+        printf("Number of items to lookup: \n");
         if (!fgets(buf, 1024, stdin))
         {
             // reading input failed
@@ -60,11 +60,9 @@ void print_menu()
 }
 
 void get_path(char* string_input)
-{
-    //TODO: DON'T OPEN FILE POINTER HERE, JUST VALIDATE STRING AND THEN RETURN PATH TO OPEN IN MAIN
-    
-    printf("Enter path of file to add to hash table or \"quit\" to return to menu: ");
-
+{    
+    printf("Enter path of file to add to hash table (\"quit\" to return to menu): ");
+    fflush(stdin);
     fgets(string_input, PATH_MAX, stdin);
     fflush(stdin);
     string_input[strcspn(string_input, "\n")] = 0; //remove \n from end of string
