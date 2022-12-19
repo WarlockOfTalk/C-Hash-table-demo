@@ -17,7 +17,7 @@ int validate_int()
     do
     {
         printf("Number of items to lookup: \n");
-        if (!fgets(buf, 1024, stdin))
+        if (!fgets(buf, BUFFER_SIZE, stdin))
         {
             // reading input failed
             printf("ERROR: Invalid Input");
@@ -27,14 +27,9 @@ int validate_int()
         num_items = atoi(buf);
 
         //validate user input
-        if(num_items == 0)
+        if(num_items <= 0)
         {
             printf("ERROR: Invalid input\n");
-        }
-
-        if(num_items < 0)
-        {
-            printf("ERROR: Input must be more than 0\n");
             num_items = 0;
             continue;
         }
@@ -60,10 +55,10 @@ void print_menu()
 }
 
 void get_path(char* string_input)
-{    
+{   
     printf("Enter path of file to add to hash table (\"quit\" to return to menu): ");
     fflush(stdin);
-    fgets(string_input, PATH_MAX, stdin);
+    fgets(string_input, BUFFER_SIZE, stdin);
     fflush(stdin);
     string_input[strcspn(string_input, "\n")] = 0; //remove \n from end of string
    

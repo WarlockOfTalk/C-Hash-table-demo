@@ -20,9 +20,9 @@
 
 
   ## TODO
-  - [ ] Add better data validation - negative values, non-numbers etc.
+  - [x] Add better data validation - negative values, non-numbers etc.
   - [ ] Find and implement more optimised hashing algorithm
   - [ ] More error checking
   - [x] Remove scanf() usuage, implement safer option
   - [ ] add support for .csv files
-  - [ ] check if wanting to print when over a hundred items
+  - [x] check if wanting to print when over a hundred items
