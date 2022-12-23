@@ -1,4 +1,4 @@
-#define HASH_MAX 1 //hash table length
+#define HASH_MAX 1000 //hash table length
 #define LIST_LEN 2000 //number of items to input in hash table
 #define MAX_NAME 50 //max length of an item
 

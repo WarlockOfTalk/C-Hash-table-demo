@@ -98,7 +98,7 @@ int main(int argc, char* argv[])
 
     print_menu();
 
-    usr_input = fgetchar();
+    usr_input = getchar();
     fflush(stdin);
 
     while (true) //loop until usr_input is 7
@@ -112,7 +112,7 @@ int main(int argc, char* argv[])
                 {
                     printf("Warning: This will print %d items, which might take a while. Do you want to continue? (y/n)\n", hash_count);
                     fflush(stdin);
-                    usr_input = fgetchar();
+                    usr_input = getchar();
                     fflush(stdin);
                 }
 
@@ -281,7 +281,7 @@ int main(int argc, char* argv[])
         printf("\n\nSelect option from menu (7 to exit): ");
 
         fflush(stdin);
-        usr_input = fgetchar();
+        usr_input = getchar();
         fflush(stdin);
 
     }
