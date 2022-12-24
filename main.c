@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 {
     bool isPathArg = false;
     char string_input[PATH_MAX];
-    char parsed_input[MAX_NAME];
+    char parsed_input[MAX_item];
     size_t size = 0;
     char* str = NULL;
     bool isLimited;
@@ -136,7 +136,7 @@ int main(int argc, char* argv[])
 
         case '3':
             printf("Enter string to look up in hash table: ");
-            fgets(string_input, MAX_NAME, stdin);            
+            fgets(string_input, MAX_item, stdin);            
             string_input[strcspn(string_input, "\n")] = 0;
 
             printf("%s was %s in the hash table.\n", string_input, find(string_input) ? "found ✅": "not found ❌");
@@ -144,14 +144,14 @@ int main(int argc, char* argv[])
         
         case '4':
             printf("Enter string to add to hash table: ");
-            fgets(string_input, MAX_NAME, stdin);
+            fgets(string_input, MAX_item, stdin);
             string_input[strcspn(string_input, "\n")] = 0;
             printf("Adding \"%s\" to hash table...\n", string_input);
             add_to_hash(string_input);
             break;
         case '5':
             printf("Enter string to delete from hash table: ");
-            fgets(string_input, MAX_NAME, stdin);
+            fgets(string_input, MAX_item, stdin);
             string_input[strcspn(string_input, "\n")] = 0;
                         
             if( !find(string_input))
@@ -226,7 +226,7 @@ int main(int argc, char* argv[])
 
         case '8':
 
-            printf("\nThis benchmark test clocks the time taken to find items from one file in the hash table. Provide a file name and then the number of items you want to lookup in that file. A stopwatch will calculate the time taken to look up those items.\n");
+            printf("\nThis benchmark test clocks the time taken to find items from one file in the hash table. Provide a file item and then the number of items you want to lookup in that file. A stopwatch will calculate the time taken to look up those items.\n");
             printf("Note: This was used mostly as a tool to optimise the bucket size of the hash table.\n\n");
 
             file_success = false;
@@ -254,7 +254,7 @@ int main(int argc, char* argv[])
 
             num_items = validate_int();
             
-            printf("Searching %d names in %s...\n", num_items, string_input);
+            printf("Searching %d items in %s...\n", num_items, string_input);
 
             clock_t begin = clock();
             

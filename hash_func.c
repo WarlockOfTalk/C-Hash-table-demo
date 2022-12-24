@@ -7,31 +7,31 @@
 
 #include "hash_func.h"
 
-int hash(char* name)
+int hash(char* item)
 {
     int sum = 0;
-    for (int i = 0; name[i] != '\0'; i++)
+    for (int i = 0; item[i] != '\0'; i++)
     {
-        sum+= name[i];
+        sum+= item[i];
     }
 
     return sum % HASH_MAX;
 }
 
-void add_to_hash(char* name)
+void add_to_hash(char* item)
 {
-    int hash_code = hash(name);
+    int hash_code = hash(item);
     
-    node* new_head = create(hash_table[hash_code], name);
+    node* new_head = create(hash_table[hash_code], item);
 
     hash_table[hash_code] = new_head;
 
     return;
 }
 
-node* create(node* current, char* name)
+node* create(node* current, char* item)
 {
-    node* new_head = new_node(name);
+    node* new_head = new_node(item);
 
     if(current != NULL)
     {
@@ -42,13 +42,13 @@ node* create(node* current, char* name)
 
 }
 
-node* new_node(char* name)
+node* new_node(char* item)
 {
     node* new_head = malloc(sizeof(node));
 
-    char* node_name = malloc(MAX_NAME);
-    strcpy(node_name, name);
-    new_head->name = node_name;
+    char* node_item = malloc(MAX_item);
+    strcpy(node_item, item);
+    new_head->item = node_item;
     new_head->next = NULL;
     return new_head;
 }
@@ -91,7 +91,7 @@ void print_list(node* current)
 {
     while(current != NULL)
     {
-        printf("%s\n", current->name);
+        printf("%s\n", current->item);
         current = current->next;
     }
 
@@ -102,7 +102,7 @@ int print_list_limited(node* current, int num_items, int count)
 {
     while(current != NULL)
     {
-        printf("%s\n", current->name);
+        printf("%s\n", current->item);
         count++;
         
         if(count >= num_items)
@@ -117,27 +117,27 @@ int print_list_limited(node* current, int num_items, int count)
 }
 
 
-bool find(char* name)
+bool find(char* item)
 {
-    // printf("\nLooking for %s...\n", name);
-    int hash_code = hash(name);
-    return find_node(hash_table[hash_code], name);
+    // printf("\nLooking for %s...\n", item);
+    int hash_code = hash(item);
+    return find_node(hash_table[hash_code], item);
 }
 
-bool find_node(node* current, char* name)
+bool find_node(node* current, char* item)
 {
     if(current == NULL)
     {
         return false;
     }
 
-    else if (strcmp(current->name, name) == 0)
+    else if (strcmp(current->item, item) == 0)
     {
         // printf("Found it!\n");
         return true;
     }
 
-    find_node(current->next, name);
+    find_node(current->next, item);
 
 }
 
@@ -156,7 +156,7 @@ void free_list(node* current)
     while (current != NULL)
     {
        tmp = current;
-       tmp->name = NULL;
+       tmp->item = NULL;
        current = current->next;
        free(tmp);
     }
@@ -177,7 +177,7 @@ bool delete_node(node** Pcurrent, char* string_input)
         return false;
     }
 
-    else if (strcmp(current->name, string_input) == 0) //first item in list
+    else if (strcmp(current->item, string_input) == 0) //first item in list
     {
         if (current->next == NULL) //one length list 
         {
@@ -187,7 +187,7 @@ bool delete_node(node** Pcurrent, char* string_input)
         }
 
         node* toDelete = current->next;
-        current->name = current->next->name;
+        current->item = current->next->item;
         current->next = current->next->next;
         free(toDelete);
         return true;
@@ -198,7 +198,7 @@ bool delete_node(node** Pcurrent, char* string_input)
 
     while(current != NULL)
     {
-        if(strcmp(current->name, string_input) == 0)
+        if(strcmp(current->item, string_input) == 0)
         {
             prev->next = current->next;
             free(current);
