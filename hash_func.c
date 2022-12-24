@@ -75,7 +75,7 @@ void print_hash_limited(int num_items)
     {
         if(hash_table[j] != NULL)
         {
-            count += print_list_limited(hash_table[j], num_items, count);
+            count = print_list_limited(hash_table[j], num_items, count);
             if( count >= num_items)
             {
                 printf("---------------\n");

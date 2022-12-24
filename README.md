@@ -24,6 +24,6 @@
   - [ ] Find and implement more optimised hashing algorithm
   - [ ] More error checking
   - [x] Remove scanf() usuage, implement safer option
-  - [ ] add support for .csv files
-  - [ ] investigate and fix behaviour in windows cmd where user input accepts linefeed as next input, can't lookup items in hashtable
-  - [x] check if wanting to print when over a hundred items
+  - [ ] Add support for .csv files
+  - [x] Investigate and fix behaviour in windows cmd where user input accepts linefeed as next input, can't lookup items in hashtable
+  - [x] Check if wanting to print when over a hundred items

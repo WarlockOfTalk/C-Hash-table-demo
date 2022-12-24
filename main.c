@@ -17,8 +17,6 @@ char usr_input;
 
 int main(int argc, char* argv[])
 {
-    printf("%d", sizeof(int));
-
     bool isPathArg = false;
     char string_input[PATH_MAX];
     char parsed_input[MAX_NAME];
@@ -34,6 +32,9 @@ int main(int argc, char* argv[])
 
     char usr_input;
     bool deleted;
+
+    int sucessful_finds = 0;
+
 
     switch (argc)
     {
@@ -88,6 +89,7 @@ int main(int argc, char* argv[])
         while (getline(&str, &size, hash_file) != -1)
         {   
             str[strcspn(str, "\n")] = 0;
+            str[strcspn(str, "\r")] = 0;
             add_to_hash(str);
             hash_count++;
         }
@@ -99,7 +101,7 @@ int main(int argc, char* argv[])
     print_menu();
 
     usr_input = getchar();
-    fflush(stdin);
+    clear_linefeed();
 
     while (true) //loop until usr_input is 7
     {
@@ -111,9 +113,9 @@ int main(int argc, char* argv[])
                 while(usr_input != 'y' && usr_input !='n')
                 {
                     printf("Warning: This will print %d items, which might take a while. Do you want to continue? (y/n)\n", hash_count);
-                    fflush(stdin);
                     usr_input = getchar();
-                    fflush(stdin);
+                    clear_linefeed();
+
                 }
 
                 if(usr_input == 'n')
@@ -134,8 +136,7 @@ int main(int argc, char* argv[])
 
         case '3':
             printf("Enter string to look up in hash table: ");
-            fgets(string_input, MAX_NAME, stdin);
-            fflush(stdin);
+            fgets(string_input, MAX_NAME, stdin);            
             string_input[strcspn(string_input, "\n")] = 0;
 
             printf("%s was %s in the hash table.\n", string_input, find(string_input) ? "found ✅": "not found ❌");
@@ -144,7 +145,6 @@ int main(int argc, char* argv[])
         case '4':
             printf("Enter string to add to hash table: ");
             fgets(string_input, MAX_NAME, stdin);
-            fflush(stdin);
             string_input[strcspn(string_input, "\n")] = 0;
             printf("Adding \"%s\" to hash table...\n", string_input);
             add_to_hash(string_input);
@@ -152,7 +152,6 @@ int main(int argc, char* argv[])
         case '5':
             printf("Enter string to delete from hash table: ");
             fgets(string_input, MAX_NAME, stdin);
-            fflush(stdin);
             string_input[strcspn(string_input, "\n")] = 0;
                         
             if( !find(string_input))
@@ -204,16 +203,17 @@ int main(int argc, char* argv[])
             {
                 break;
             }
-
+            
             printf("Processing %s..\n", string_input);
-
             local_count = 0; //reset count 
             while (getline(&str, &size, hash_file) != -1)
             {   
                 str[strcspn(str, "\n")] = 0;
+                str[strcspn(str, "\r")] = 0;
                 add_to_hash(str);
                 local_count++;
             }
+
             hash_count += local_count;
 
             printf("Successfully added %d items to hash table..\n", local_count);
@@ -226,7 +226,7 @@ int main(int argc, char* argv[])
 
         case '8':
 
-            printf("\nThis benchmark test clocks the time taken to find items from one file in the hash table. Provide a file name and then the number of items you want to lookup in that file. A stopwatch will calculate the time taken to look up those items\n");
+            printf("\nThis benchmark test clocks the time taken to find items from one file in the hash table. Provide a file name and then the number of items you want to lookup in that file. A stopwatch will calculate the time taken to look up those items.\n");
             printf("Note: This was used mostly as a tool to optimise the bucket size of the hash table.\n\n");
 
             file_success = false;
@@ -259,17 +259,25 @@ int main(int argc, char* argv[])
             clock_t begin = clock();
             
             local_count = 0; //reset count
+            sucessful_finds = 0;
+
             while (getline(&str, &size, hash_file) != -1 && local_count < num_items) //lookup n items in hash table
             {   
                 str[strcspn(str, "\n")] = 0;
-                find(str);
+                str[strcspn(str, "\r")] = 0;
+                
+                if(find(str))
+                {
+                    sucessful_finds++;
+                }
+
                 local_count++;
             }
 
             clock_t end = clock();
             double time_spent = (double)(end - begin) / CLOCKS_PER_SEC; //calculate time taken
 
-            printf("Successfully looked-up %d items in the hash table in %lf seconds\n\n", local_count, time_spent);
+            printf("Looked-up %d items and successfully found %d items in the hash table in %lf seconds\n\n", local_count, sucessful_finds,  time_spent);
             
             break;
         
@@ -280,9 +288,8 @@ int main(int argc, char* argv[])
 
         printf("\n\nSelect option from menu (7 to exit): ");
 
-        fflush(stdin);
         usr_input = getchar();
-        fflush(stdin);
+        clear_linefeed();
 
     }
 

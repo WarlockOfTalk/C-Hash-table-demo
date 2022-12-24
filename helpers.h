@@ -7,5 +7,6 @@
 int validate_int(void);
 void print_menu(void);
 void get_path(char* string_input);
+void clear_linefeed(void);
 
 #endif /* HELPERS_H_ */

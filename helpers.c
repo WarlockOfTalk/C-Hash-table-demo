@@ -57,10 +57,14 @@ void print_menu()
 void get_path(char* string_input)
 {   
     printf("Enter path of file to add to hash table (\"quit\" to return to menu): ");
-    fflush(stdin);
     fgets(string_input, BUFFER_SIZE, stdin);
-    fflush(stdin);
     string_input[strcspn(string_input, "\n")] = 0; //remove \n from end of string
    
     return;
+}
+
+void clear_linefeed(void)
+{
+    char clear_stdin;
+    while ((clear_stdin = getchar()) != '\n' && clear_stdin != EOF);
 }
