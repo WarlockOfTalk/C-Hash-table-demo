@@ -4,7 +4,9 @@
 
 - Learning project that demonstrates use of an array of linked lists to build a hash table that can store thousands of strings and carry out ten's of thousands of lookups in milliseconds
 - Included "names.txt" serves as demo file can be read into the hash table by running ./hash_table.exe "names.txt"
-- "names.txt" contains a list of 18,239 people's names 
+- "names.txt" contains a list of 18,239 people's names
+
+.exe compiled using gcc 
 
 ### Menu Options
 - Option 1 - Prints all items currently in the table 
@@ -27,3 +29,4 @@
   - [ ] Add support for .csv files
   - [x] Investigate and fix behaviour in windows cmd where user input accepts linefeed as next input, can't lookup items in hashtable
   - [x] Check if wanting to print when over a hundred items
+  - [ ] Create make file for compiling
